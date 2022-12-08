@@ -1,21 +1,27 @@
 terraform {
-    required_providers {
-      aws = {
-        source = "hashicorp/aws"
-        version = "~> 3.0"
-      }
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 3.0"
     }
+  }
 }
 
 provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_instance" "instance_1" {
-  ami             = "ami-011899242bb902164" # Ubuntu 20.04 LTS // us-east-1
-  instance_type   = "t2.micro"
-  
-  tags = {
-    Name = "ubuntu-20.04-instance"
-  }
+resource "aws_s3_bucket" "my-bucket" {
+  bucket = "tf-test-anthony"
 }
+
+
+# resource "aws_dynamodb_table" "terraform_locks" {
+#   name = "terraform-state-locking"
+#   billing_mode = "PAY_PER_REQUEST"
+#   hash_key = "LockID" #need this for it to work
+#   attribute {
+#     name = "LockID"
+#     type = "S"
+#   } 
+# }
